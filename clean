@@ -1,5 +1,6 @@
 #!/bin/sh
 find *~ | xargs rm -v
+find *\# | xargs rm -v
 cd ./src/
 find  *.o | xargs rm -v
 find  *~ | xargs rm -v
