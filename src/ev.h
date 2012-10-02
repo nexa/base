@@ -11,6 +11,8 @@
 #endif /*EV_TINY_MODE*/
 #endif /*EV_SiZE*/
 
+#define EV_INTERVAL 1000
+
 #define EV_OK	0
 #define EV_ERR	-1
 
