@@ -1,5 +1,6 @@
 #!/bin/sh
-cd ~/ws/
+
+cd ~/src/
 find -name "*.o" | xargs rm -v
 find -name "*~" | xargs rm -v
 find -name "*\#" | xargs rm -v
