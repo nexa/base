@@ -7,4 +7,6 @@
 #define FALSE 	0
 #endif /*BOOL*/
 
+void deamonize(void);
+
 #endif /*UTILS_H*/ 
