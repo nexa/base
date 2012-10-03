@@ -24,7 +24,7 @@ struct _event_t;
 struct _fired_t;
 struct _events_t;
 
-typedef void EVPROC(struct _events_t *evs, int fd, int mask, void *tag);
+typedef void (*EVPROC)(struct _events_t *evs, int fd, int mask, void *tag);
 
 typedef struct _event_t {
   int fd;
@@ -35,7 +35,7 @@ typedef struct _event_t {
 }event_t;
 
 typedef struct _fired_t {
-  int index;
+  int fd;
   int mask;
 }fired_t;
 
@@ -44,7 +44,7 @@ typedef struct _events_t {
   BOOL started;
   size_t size;
   event_t events[EV_SIZE];
-  fired_t events[EV_SIZE];
+  fired_t fireds[EV_SIZE];
   void *tag;
 }events_t;
 
@@ -54,7 +54,7 @@ void ev_start(events_t *evs);
 void ev_stop(events_t *evs);
 void ev_proc(events_t *evs);
 
-BOOL ev_create_event(events_t *evs, int fd, int mask, EVPROC *proc, void *tag);
+BOOL ev_create_event(events_t *evs, int fd, int mask, EVPROC proc, void *tag);
 BOOL ev_delete_event(events_t *evs, int fd, int mask);
 int ev_get_mask(events_t *evs, int fd);
 

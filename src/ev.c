@@ -39,7 +39,7 @@ void ev_stop(events_t *evs) {
   evs->started = FALSE;
 }
 
-BOOL ev_create_event(events_t *evs, int fd, int mask, EVPROC *proc, void *tag) {
+BOOL ev_create_event(events_t *evs, int fd, int mask, EVPROC proc, void *tag) {
   event_t *e;
 
   if (evs == NULL || proc == NULL || tag == NULL) return FALSE;
@@ -59,7 +59,7 @@ BOOL ev_delete_event(events_t *evs, int fd, int mask) {
   event_t *e;
 
   if (evs == NULL) return FALSE;
-  if (fd => EV_SIZE) return FALSE;
+  if (fd >= EV_SIZE) return FALSE;
   
   e = &evs->events[fd];
   if (e->mask == EV_NONE) return FALSE;
@@ -82,7 +82,7 @@ int ev_get_mask(events_t *evs, int fd) {
   event_t *e;
 
   if (evs == NULL) return FALSE;
-  if (fd => EV_SIZE) return FALSE;
+  if (fd >= EV_SIZE) return FALSE;
 
   e = &evs->events[fd];
 
@@ -92,14 +92,14 @@ int ev_get_mask(events_t *evs, int fd) {
 void ev_proc(events_t *evs) {
   int num;
 
-  if (evs == NULL) return 0;
+  if (evs == NULL) return;
 
   if (evs->max != -1) {
     int j;
     num = ev_poll_api(evs);
     for (j = 0;j < num;j++) {
-      event_t *e = &evs->events[evs->fired[j].index];
-      int mask = evs->fired[j].mask;
+      event_t *e = &evs->events[evs->fireds[j].fd];
+      int mask = evs->fireds[j].mask;
       int fd = e->fd;
       int rfired = 0;
 
@@ -118,8 +118,8 @@ void ev_proc(events_t *evs) {
 void ev_start(events_t *evs) {
   if (evs == NULL) return;
   
-  evs->stop = 0;
-  while (!evs->stop) {
+  evs->started = 0;
+  while (!evs->started) {
     ev_proc(evs);
   }
 }

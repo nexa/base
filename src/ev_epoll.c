@@ -66,7 +66,7 @@ int ev_poll_api(events_t *evs) {
   ev_api *api = evs->tag;
   int retval, num = 0;
   
-  retval = epoll_wait(api->epfd, api->events, EV_SIZE, EV_INTERVL);
+  retval = epoll_wait(api->epfd, api->events, EV_SIZE, EV_INTERVAL);
   if (retval > 0) {
     int j;
     num = retval;
@@ -75,8 +75,8 @@ int ev_poll_api(events_t *evs) {
       struct epoll_event *ee = api->events + j;
       if (ee->events & EPOLLIN) mask |= EV_READ;
       if (ee->events & EPOLLOUT) mask |= EV_WRIT;
-      evs->fired[j].fd = ee->data.fd;
-      evs->fired[j].mask = mask;
+      evs->fireds[j].fd = ee->data.fd;
+      evs->fireds[j].mask = mask;
     }
   } 
   return num;
