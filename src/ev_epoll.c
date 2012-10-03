@@ -72,7 +72,12 @@ int ev_poll_api(events_t *evs) {
     num = retval;
     for (j = 0;j < num;j++) {
       int mask = 0;
+      struct epoll_event *ee = api->events + j;
+      if (ee->events & EPOLLIN) mask |= EV_READ;
+      if (ee->events & EPOLLOUT) mask |= EV_WRIT;
+      evs->fired[j].fd = ee->data.fd;
+      evs->fired[j].mask = mask;
     }
-  }
-  
+  } 
+  return num;
 }
