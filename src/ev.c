@@ -78,17 +78,6 @@ BOOL ev_delete_event(events_t *evs, int fd, int mask) {
   return TRUE;
 }
 
-int ev_get_mask(events_t *evs, int fd) {
-  event_t *e;
-
-  if (evs == NULL) return FALSE;
-  if (fd >= EV_SIZE) return FALSE;
-
-  e = &evs->events[fd];
-
-  return e->mask;
-}
-
 void ev_proc(events_t *evs) {
   int num;
 

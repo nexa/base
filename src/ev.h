@@ -56,7 +56,5 @@ void ev_proc(events_t *evs);
 
 BOOL ev_create_event(events_t *evs, int fd, int mask, EVPROC proc, void *tag);
 BOOL ev_delete_event(events_t *evs, int fd, int mask);
-int ev_get_mask(events_t *evs, int fd);
-
 
 #endif /*EV_H*/
