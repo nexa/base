@@ -5,7 +5,7 @@
 
 #include "ev.h"
 
-#include "ev_epoll.c"
+#include "ev_kqueue.c"
 
 events_t * ev_create() {
   int i;
